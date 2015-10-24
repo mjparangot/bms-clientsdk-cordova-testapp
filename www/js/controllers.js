@@ -129,7 +129,8 @@ angular.module('starter.controllers', [])
 
   // Send logs to server
   $scope.sendLogs = function() {
-    MFPLogger.send();
+    if ($scope.logger.logCount > 0)
+      MFPLogger.send();
     $scope.logger.logCount = 0;
   }
 })
@@ -151,14 +152,18 @@ angular.module('starter.controllers', [])
   };
 
   $scope.setCapture = function() {
-    alert($scope.settings.logger.enabled);
-    MFPLogger.setCapture($scope.settings.logger.enabled)
-      .then($scope.getCapture());
+    alert("Set capture set to: " + $scope.settings.logger.enabled);
+    MFPLogger.setCapture($scope.settings.logger.enabled);
+    // Maybe use Promises to fix
+    //  .then($scope.getCapture());
   };
 
+  // PROBLEM: Capture is getting updated properly as verified in console, but call to getCapture
+  // returns old value of capture
+  // TODO: Figure out how to call function in correct order.
   $scope.getCapture = function() {
     MFPLogger.getCapture(function(isCapture) {
-      alert("Capture is now " + isCapture);
+      //alert("Capture is now " + isCapture);
     });
   };
 
@@ -166,5 +171,5 @@ angular.module('starter.controllers', [])
   $scope.$watch("settings.logger.enabled", function() {
     $timeout($scope.getCapture());
   });
-*/
+  */
 });
