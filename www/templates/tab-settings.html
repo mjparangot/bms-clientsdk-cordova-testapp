@@ -1,0 +1,25 @@
+<ion-view view-title="Settings">
+  <ion-content>
+    <ion-list>
+      <logger>
+      	<div class="item item-divider">
+      		Logger
+      	</div>
+  	    <ion-toggle class="item item-icon-left" ng-click="setCapture()" ng-model="settings.logger.enabled">
+          <i class="icon ion-document-text"></i>
+          Persist Log Data
+  	    </ion-toggle>
+      </logger>
+
+      <analytics>
+        <div class="item item-divider">
+          Analytics
+        </div>
+        <ion-toggle class="item item-icon-left" ng-model="settings.analytics.enabled">
+          <i class="icon ion-ios-analytics"></i>
+          Save Analytics
+        </ion-toggle>
+      </analytics>
+    </ion-list>
+  </ion-content>
+</ion-view>

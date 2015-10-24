@@ -1,0 +1,53 @@
+<ion-view view-title="Logger ">
+  <ion-content class="padding">
+
+    <div class="list card">
+      <div class="item item-divider">MFPLogger</div>
+      <div class="item item-body">
+        <label class="item item-input">
+          <span class="input-label">Name</span>
+          <input type="text" ng-model="logger.name" placeholder="Name of logger instance">
+        </label>
+        <button class="button button-block button-positive" ng-click="addLoggerInstance()">
+          Add Logger Instance
+        </button>
+      </div>
+    </div>
+
+    <div class="list card">
+      <!-- Select logger -->
+      <div class="item item-divider">Logger Instance</div>
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Selected Logger
+        </div>
+        <select ng-model="logger.selected">
+          <option ng-repeat="logger in logger.loggers">{{logger.name.name}}</option>
+        </select>
+      </label>
+      <!-- Select log level -->
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Log level
+        </div>
+        <select ng-model="logger.level">
+          <option>INFO</option>
+          <option>DEBUG</option>
+          <option>WARN</option>
+          <option>ERROR</option>
+          <option>FATAL</option>
+        </select>
+      </label>
+      <!-- Logger message -->
+      <label class="item item-input item-text-wrap">
+        <span class="input-label">Message</span>
+        <input type="text" ng-model="logger.message" placeholder="Message">
+      </label>
+      <div class="button-bar">
+        <a class="button" ng-class="logger.class_logLevel" ng-click="captureLog()">{{logger.level}}</a>
+        <a class="button button-positive" ng-click="sendLogs()">Send Logs ({{logger.logCount}})</a>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>
