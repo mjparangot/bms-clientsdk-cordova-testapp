@@ -152,7 +152,7 @@ angular.module('starter.controllers', [])
   };
 
   $scope.setCapture = function() {
-    alert("Set capture set to: " + $scope.settings.logger.enabled);
+    //alert("Set capture set to: " + $scope.settings.logger.enabled);
     MFPLogger.setCapture($scope.settings.logger.enabled);
     // Maybe use Promises to fix
     //  .then($scope.getCapture());
