@@ -47,7 +47,24 @@ angular.module('starter.services', [])
 })
 
 .factory('Loggers', function() {
-  return {};
+  var getLogLevelClass = function(level) {
+    var b_class = "button-debug";
+
+    if (level == "INFO")
+      b_class = "button-info";
+    else if (level == "WARN")
+      b_class = "button-warn";
+    else if (level == "ERROR")
+      b_class = "button-error";
+    else if (level == "FATAL")
+      b_class = "button-fatal";
+
+    return b_class;
+  }
+
+  return {
+    getLogLevelClass: getLogLevelClass
+  };
 })
 
 .factory('Chats', function() {

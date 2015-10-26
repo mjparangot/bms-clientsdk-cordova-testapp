@@ -68,22 +68,12 @@ angular.module('starter.controllers', [])
     loggers: {},
   };
 
+  //$scope.logger.class_logLevel = Loggers.getLogLevelClass($scope.logger.level);
+
   // Watch log level and update button when log level is changed
   $scope.$watch("logger.level", function() {
-    var level = $scope.logger.level;
-    var ngclass = "button-stable";
-
-    if (level == "DEBUG")
-      ngclass = "button-balanced";
-    else if (level == "WARN")
-      ngclass = "button-energized";
-    else if (level == "ERROR")
-      ngclass = "button-assertive";
-    else if (level == "FATAL")
-      ngclass = "button-dark";
-
     $scope.$evalAsync(function() {
-      $scope.logger.class_logLevel = ngclass;
+      $scope.logger.class_logLevel = Loggers.getLogLevelClass($scope.logger.level);;
     });
   });
 
@@ -129,9 +119,12 @@ angular.module('starter.controllers', [])
 
   // Send logs to server
   $scope.sendLogs = function() {
-    if ($scope.logger.logCount > 0)
+    var count = $scope.logger.logCount;
+    if ($scope.logger.logCount > 0) {
       MFPLogger.send();
-    $scope.logger.logCount = 0;
+      $scope.logger.logCount = 0;
+      alert(count + " logs sent. Check your app dashboard to see logs.");
+    }
   }
 })
 
@@ -144,10 +137,11 @@ angular.module('starter.controllers', [])
 .controller('SettingsCtrl', function($scope, $timeout) {
   $scope.settings = {
     logger: {
-      enabled: false
+      enabled: true,
+      minLogLevel: "INFO"
     },
     analytics: {
-      enabled: false
+      enabled: true
     }
   };
 
@@ -166,6 +160,12 @@ angular.module('starter.controllers', [])
       //alert("Capture is now " + isCapture);
     });
   };
+
+  // Watch minimum log level and set log level when changed
+  $scope.$watch("settings.logger.minLogLevel", function() {
+    MFPLogger.setLevel($scope.settings.logger.minLogLevel);
+    //alert("Log Level: " + $scope.settings.logger.minLogLevel);
+  });
 
   /*
   $scope.$watch("settings.logger.enabled", function() {

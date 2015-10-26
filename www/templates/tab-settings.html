@@ -2,13 +2,36 @@
   <ion-content>
     <ion-list>
       <logger>
-      	<div class="item item-divider">
-      		Logger
-      	</div>
-  	    <ion-toggle class="item item-icon-left" ng-click="setCapture()" ng-model="settings.logger.enabled">
-          <i class="icon ion-document-text"></i>
-          Persist Log Data
-  	    </ion-toggle>
+        <div class="list">
+        	<div class="item item-divider">
+        		Logger
+        	</div>
+    	    <ion-toggle class="item item-icon-left" ng-click="setCapture()" ng-model="settings.logger.enabled">
+            <i class="icon ion-document-text"></i>
+            Persist Log Data
+    	    </ion-toggle>
+          
+          <label class="item item-input item-select item-icon-left">
+            <div class="row">
+              <div class="col-10">
+                <i class="icon ion-levels"></i>
+              </div>
+              <div class="col-10">
+                <div class="input-label">
+                  Minimum Log Level
+                </div>
+              </div>
+            </div>
+            <select ng-model="settings.logger.minLogLevel">
+              <option>DEBUG</option>
+              <option>INFO</option>
+              <option>WARN</option>
+              <option>ERROR</option>
+              <option>FATAL</option>
+            </select>
+          </label>
+
+        </div>
       </logger>
 
       <analytics>

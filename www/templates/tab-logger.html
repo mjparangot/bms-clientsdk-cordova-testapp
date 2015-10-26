@@ -31,8 +31,8 @@
           Log level
         </div>
         <select ng-model="logger.level">
-          <option>INFO</option>
           <option>DEBUG</option>
+          <option>INFO</option>
           <option>WARN</option>
           <option>ERROR</option>
           <option>FATAL</option>
@@ -44,7 +44,7 @@
         <input type="text" ng-model="logger.message" placeholder="Message">
       </label>
       <div class="button-bar">
-        <a class="button" ng-class="logger.class_logLevel" ng-click="captureLog()">{{logger.level}}</a>
+        <a class="button button-logger" ng-class="logger.class_logLevel" ng-click="captureLog()">{{logger.level}}</a>
         <a class="button button-positive" ng-click="sendLogs()">Send Logs ({{logger.logCount}})</a>
       </div>
     </div>
