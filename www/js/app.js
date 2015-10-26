@@ -35,7 +35,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   $stateProvider
 
   // setup an abstract state for the tabs directive
-    .state('tab', {
+  .state('tab', {
     url: '/tab',
     abstract: true,
     templateUrl: 'templates/tabs.html'
@@ -59,6 +59,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       'tab-logger': {
         templateUrl: 'templates/tab-logger.html',
         controller: 'LoggerCtrl'
+      }
+    }
+  })
+
+  .state('tab.push', {
+    url: '/push',
+    views: {
+      'tab-push': {
+        templateUrl: 'templates/tab-push.html',
+        controller: 'PushCtrl'
       }
     }
   })

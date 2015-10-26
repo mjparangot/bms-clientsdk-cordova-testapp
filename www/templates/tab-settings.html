@@ -43,6 +43,16 @@
           Save Analytics
         </ion-toggle>
       </analytics>
+
+      <push>
+        <div class="item item-divider">
+          Push Notifications
+        </div>
+        <ion-toggle class="item item-icon-left" ng-model="settings.push.enabled">
+          <i class="icon" ng-class="settings.push.class_enabledIcon"></i>
+          Send Notifications
+        </ion-toggle>
+      </push>
     </ion-list>
   </ion-content>
 </ion-view>

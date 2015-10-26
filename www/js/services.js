@@ -43,7 +43,6 @@ angular.module('starter.services', [])
     initializeBMSClient: initializeBMSClient,
     sendRequest: sendRequest
   };
-
 })
 
 .factory('Loggers', function() {
@@ -65,6 +64,10 @@ angular.module('starter.services', [])
   return {
     getLogLevelClass: getLogLevelClass
   };
+})
+
+.factory('Push', function() {
+  
 })
 
 .factory('Chats', function() {

@@ -128,6 +128,11 @@ angular.module('starter.controllers', [])
   }
 })
 
+// MFPPush
+.controller('PushCtrl', function($scope, Push) {
+
+})
+
 // Chats Detail example
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
@@ -142,6 +147,10 @@ angular.module('starter.controllers', [])
     },
     analytics: {
       enabled: true
+    },
+    push: {
+      class_enabledIcon: "ion-android-notifications-off",
+      enabled: false
     }
   };
 
@@ -165,6 +174,13 @@ angular.module('starter.controllers', [])
   $scope.$watch("settings.logger.minLogLevel", function() {
     MFPLogger.setLevel($scope.settings.logger.minLogLevel);
     //alert("Log Level: " + $scope.settings.logger.minLogLevel);
+  });
+
+  $scope.$watch("settings.push.enabled", function() {
+    if ($scope.settings.push.enabled)
+      $scope.settings.push.class_enabledIcon = "ion-android-notifications";
+    else
+      $scope.settings.push.class_enabledIcon = "ion-android-notifications-off";
   });
 
   /*
