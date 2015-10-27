@@ -17,11 +17,9 @@ app.run(function($ionicPlatform) {
     }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
-      StatusBar.styleLightContent();
+      StatusBar.styleDefault();
       StatusBar.overlaysWebView(true);
       StatusBar.show();
-      //StatusBar.style(2);
-      //$ionicPlatform.style(2);
     }
 
     // Initialize BMSClient with Route and GUID
