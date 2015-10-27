@@ -1,7 +1,7 @@
-angular.module('starter.controllers', [])
+var module = angular.module('starter.controllers', []);
 
 //BMSClient and MFPRequest
-.controller('RequestCtrl', function($scope, Requests) {
+module.controller('RequestCtrl', function($scope, Requests) {
 
   $scope.bms = {
     url: "https://HelloMatt.mybluemix.net",
@@ -36,10 +36,10 @@ angular.module('starter.controllers', [])
       $scope.query.response = "";
     });
   };
-})
+});
 
 // Chats example
-.controller('ChatsCtrl', function($scope, Chats) {
+module.controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -53,10 +53,10 @@ angular.module('starter.controllers', [])
   $scope.remove = function(chat) {
     Chats.remove(chat);
   };
-})
+});
 
 // MFPLogger
-.controller('LoggerCtrl', function($scope, Loggers) {
+module.controller('LoggerCtrl', function($scope, Loggers) {
 
   $scope.logger = {
     name: null,
@@ -115,7 +115,7 @@ angular.module('starter.controllers', [])
 
     // Update log count
     $scope.logger.logCount++;
-  }
+  };
 
   // Send logs to server
   $scope.sendLogs = function() {
@@ -125,21 +125,21 @@ angular.module('starter.controllers', [])
       $scope.logger.logCount = 0;
       alert(count + " logs sent. Check your app dashboard to see logs.");
     }
-  }
-})
+  };
+});
 
 // MFPPush
-.controller('PushCtrl', function($scope, Push) {
+module.controller('PushCtrl', function($scope, Push) {
 
-})
+});
 
 // Chats Detail example
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
+module.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
-})
+});
 
 // Settings for all plugin components
-.controller('SettingsCtrl', function($scope, $timeout) {
+module.controller('SettingsCtrl', function($scope, $timeout) {
   $scope.settings = {
     logger: {
       enabled: true,
@@ -189,3 +189,4 @@ angular.module('starter.controllers', [])
   });
   */
 });
+

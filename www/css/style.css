@@ -2,7 +2,7 @@
 
 /* Logger buttons */
 .button-logger {
-	color: white;
+	color: white !important;
 }
 
 .button-debug {
