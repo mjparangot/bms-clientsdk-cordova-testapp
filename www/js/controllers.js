@@ -131,6 +131,22 @@ module.controller('LoggerCtrl', function($scope, Loggers) {
 // MFPPush
 module.controller('PushCtrl', function($scope, Push) {
 
+  $scope.getSubscriptionStatus = function() {
+    MFPPush.getSubscriptionStatus(function(success) {
+      alert(success);
+    }, function(failure) {
+      alert(failure);
+    });
+  };
+
+  $scope.retrieveAvailableTags = function() {
+    MFPPush.retrieveAvailableTags(function(success) {
+      alert(success);
+    }, function(failure) {
+      alert(failure);
+    });
+  };
+
 });
 
 // Chats Detail example

@@ -68,6 +68,9 @@ angular.module('starter.services', [])
 
 .factory('Push', function() {
   
+  return {
+    
+  }
 })
 
 .factory('Chats', function() {
