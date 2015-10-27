@@ -170,13 +170,6 @@ module.controller('SettingsCtrl', function($scope, $timeout) {
     }
   };
 
-  $scope.setCapture = function() {
-    //alert("Set capture set to: " + $scope.settings.logger.enabled);
-    MFPLogger.setCapture($scope.settings.logger.enabled);
-    // Maybe use Promises to fix
-    //  .then($scope.getCapture());
-  };
-
   // PROBLEM: Capture is getting updated properly as verified in console, but call to getCapture
   // returns old value of capture
   // TODO: Figure out how to call function in correct order.
@@ -185,6 +178,10 @@ module.controller('SettingsCtrl', function($scope, $timeout) {
       //alert("Capture is now " + isCapture);
     });
   };
+
+  $scope.$watch("settings.logger.enabled", function() {
+    MFPLogger.setCapture($scope.settings.logger.enabled);
+  });
 
   // Watch minimum log level and set log level when changed
   $scope.$watch("settings.logger.minLogLevel", function() {
