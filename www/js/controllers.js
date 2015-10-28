@@ -156,6 +156,7 @@ module.controller('PushCtrl', function($scope, Push) {
     for (var i in $scope.tagList) {
       if ($scope.tagList[i].checked) {
         $scope.tagList[i].subscribed = true;
+        $scope.tagList[i].checked = false;
         $scope.tagList[i].class_subscribed = "text-green";
         tags.push($scope.tagList[i].name);
       }
@@ -169,6 +170,7 @@ module.controller('PushCtrl', function($scope, Push) {
     for (var i in $scope.tagList) {
       if ($scope.tagList[i].checked) {
         $scope.tagList[i].subscribed = false;
+        $scope.tagList[i].checked = false;
         $scope.tagList[i].class_subscribed = "text-red";
         tags.push($scope.tagList[i].name);
       }
