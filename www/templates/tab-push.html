@@ -1,6 +1,32 @@
 <ion-view view-title="Push">
  	<ion-content class="padding">
+ 		<button class="button button-block button-stable" ng-click="fillTagList()">Update Available Tags</button>
  		<div class="list card">
+      		<div class="item item-divider">
+      			<div class="row no-space">
+      				<div class="col col-67">Available Tags</div>
+      				<div class="col col-33">Subscribed</div>
+      			</div>
+      		</div>
+  		    <div class="list no-space">
+		        <ion-checkbox ng-repeat="item in tagList" ng-model="item.checked">
+	  		    	<div class="row">
+			        	<div class="col col-80">
+			        		{{ item.name }}
+			        	</div>
+			        	<div class="col col-20" ng-class="item.class_subscribed">
+			        		{{ item.subscribed }}
+			        	</div>
+				    </div>
+		        </ion-checkbox>
+	        </div>
+	        <div class="button-bar">
+	        	<a class="button button-assertive" ng-click="unsubscribe()">Unsubscribe</a>
+		    	<a class="button button-balanced" ng-click="subscribe()">Subscribe</a>
+		    </div>
+ 		</div>
+ 		<div class="list card">
+      		<div class="item item-divider">MFPPush</div>
  			<div class="item">
 		 		<button class="button button-block button-positive" ng-click="getSubscriptionStatus()">
 		          Get Subscription Status

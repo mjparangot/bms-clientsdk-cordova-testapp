@@ -131,21 +131,56 @@ module.controller('LoggerCtrl', function($scope, Loggers) {
 // MFPPush
 module.controller('PushCtrl', function($scope, Push) {
 
-  $scope.getSubscriptionStatus = function() {
-    MFPPush.getSubscriptionStatus(function(success) {
-      alert(success);
-    }, function(failure) {
-      alert(failure);
-    });
+  // Update the list of available tags
+  $scope.fillTagList = function() {
+    MFPPush.retrieveAvailableTags(function(tags) {
+      $scope.tagList = []
+      $scope.$evalAsync(function() {
+        for (var i in tags) {
+          $scope.tagList.push({
+            name: tags[i], 
+            checked: false, 
+            subscribed: false,
+            class_subscribed: "text-red"
+          });
+        }
+      });
+    }, null);
+
+    // UPDATE LIST TO INDICATE SUBSCRIBED TAGS
   };
 
-  $scope.retrieveAvailableTags = function() {
-    MFPPush.retrieveAvailableTags(function(success) {
-      alert(success);
-    }, function(failure) {
-      alert(failure);
-    });
+  // Subscribe to all checked tags
+  $scope.subscribe = function() {
+    var tags = [];
+    for (var i in $scope.tagList) {
+      if ($scope.tagList[i].checked) {
+        $scope.tagList[i].subscribed = true;
+        $scope.tagList[i].class_subscribed = "text-green";
+        tags.push($scope.tagList[i].name);
+      }
+    }
+    //MFPPush.subscribeToTags(tags, null, null);
   };
+
+  // Unsubscribe from all checked tags
+  $scope.unsubscribe = function() {
+    var tags = [];
+    for (var i in $scope.tagList) {
+      if ($scope.tagList[i].checked) {
+        $scope.tagList[i].subscribed = false;
+        $scope.tagList[i].class_subscribed = "text-red";
+        tags.push($scope.tagList[i].name);
+      }
+    }
+    //MFPPush.unsubscribeFromTags(tags, null, null);
+  };
+
+  $scope.getSubscriptionStatus = Push.getSubscriptionStatus;
+  $scope.retrieveAvailableTags = Push.retrieveAvailableTags;
+
+  // tag: { name: tags[i], subscribed: false }
+  $scope.tagList = [];
 
 });
 
@@ -195,11 +230,5 @@ module.controller('SettingsCtrl', function($scope, $timeout) {
     else
       $scope.settings.push.class_enabledIcon = "ion-android-notifications-off";
   });
-
-  /*
-  $scope.$watch("settings.logger.enabled", function() {
-    $timeout($scope.getCapture());
-  });
-  */
 });
 

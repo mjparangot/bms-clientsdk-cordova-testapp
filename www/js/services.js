@@ -68,8 +68,25 @@ angular.module('starter.services', [])
 
 .factory('Push', function() {
   
+  var getSubscriptionStatus = function() {
+    MFPPush.getSubscriptionStatus(function(success) {
+      alert(success);
+    }, function(failure) {
+      alert(failure);
+    });
+  };
+
+  var retrieveAvailableTags = function(tags) {
+    MFPPush.retrieveAvailableTags(function(success) {
+      alert(success);
+    }, function(failure) {
+      alert(failure);
+    });
+  };
+
   return {
-    
+    getSubscriptionStatus: getSubscriptionStatus,
+    retrieveAvailableTags: retrieveAvailableTags
   }
 })
 

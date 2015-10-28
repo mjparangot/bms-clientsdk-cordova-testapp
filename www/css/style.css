@@ -24,3 +24,17 @@
 .button-fatal {
 	background-color: black;
 }
+
+/* Utility */
+.no-space {
+	padding: 0;
+	margin: 0;
+}
+
+.text-red {
+	color: red;
+}
+
+.text-green {
+	color: green;
+}
