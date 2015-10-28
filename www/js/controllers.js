@@ -181,7 +181,6 @@ module.controller('PushCtrl', function($scope, Push) {
 
   // tag: { name: tags[i], subscribed: false }
   $scope.tagList = [];
-
 });
 
 // Chats Detail example
