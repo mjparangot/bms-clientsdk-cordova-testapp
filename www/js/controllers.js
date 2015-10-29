@@ -1,7 +1,11 @@
 var module = angular.module('starter.controllers', []);
 
+module.run(function($rootScope) {
+    $rootScope.bluemixInit = true;
+});
+
 //BMSClient and MFPRequest
-module.controller('RequestCtrl', function($scope, Requests) {
+module.controller('RequestCtrl', function($scope, $rootScope, Requests) {
 
   $scope.bms = {
     url: "https://HelloMatt.mybluemix.net",
@@ -21,6 +25,7 @@ module.controller('RequestCtrl', function($scope, Requests) {
 
   $scope.initialize = function() {
     Requests.initializeBMSClient($scope.bms.url, $scope.bms.guid);
+    $rootScope.bluemixInit = false;
   };
 
   $scope.sendRequest = function() {
@@ -140,27 +145,31 @@ module.controller('PushCtrl', function($scope, Push, Settings) {
   $scope.tagList = [];
 
   $scope.push = {
+    registered: false,
     status: "Not Registered for Push",
     class_status: "text-red"
   };
 
-  // Update the list of available tags
-  $scope.fillTagList = function() {
-    MFPPush.retrieveAvailableTags(function(tags) {
-      $scope.tagList = []
-      $scope.$evalAsync(function() {
-        for (var i in tags) {
-          $scope.tagList.push({
-            name: tags[i], 
-            checked: false, 
-            subscribed: false,
-            class_subscribed: "text-red"
-          });
-        }
-      });
-    }, null);
-    // UPDATE LIST TO INDICATE SUBSCRIBED TAGS
-  };
+  // Register for push notifications
+  $scope.register = function() {
+    MFPPush.register(Settings.getPushSettings(), null, null);
+    alert(JSON.stringify(Settings.getPushSettings(), null, 4));
+    $scope.registered = true;
+    $scope.push.status = "Registered for Push";
+    $scope.push.class_status = "text-green";
+  }
+
+  // Unregister for push notifications
+  $scope.unregister = function() {
+    MFPPush.unregister(null, null);
+    $scope.registered = false;
+    $scope.push.status = "Not Registered for Push";
+    $scope.push.class_status = "text-red";
+    // Clear tag list 
+    $scope.$evalAsync(function() {
+      $scope.tagList = [];
+    });
+  }
 
   // Subscribe to all checked tags
   $scope.subscribe = function() {
@@ -173,7 +182,7 @@ module.controller('PushCtrl', function($scope, Push, Settings) {
         tags.push($scope.tagList[i].name);
       }
     }
-    alert(tags);
+    // Cordova Subscribe function
     MFPPush.subscribeToTags(tags, function(success) {
       alert(success);
     }, function(failure) {
@@ -192,23 +201,33 @@ module.controller('PushCtrl', function($scope, Push, Settings) {
         tags.push($scope.tagList[i].name);
       }
     }
-    //MFPPush.unsubscribeFromTags(tags, null, null);
+    // Cordova Unsubscribe function
+    MFPPush.unsubscribeFromTags(tags, function(success) {
+      alert(success);
+    }, function(failure) {
+      alert(failure);
+    });
   };
 
-  // Register for push notifications
-  $scope.register = function() {
-    //MFPPush.register(Push.getPushSettings(), null, null);
-    alert(JSON.stringify(Settings.settings));
-    $scope.push.status = "Registered for Push";
-    $scope.push.class_status = "text-green";
-  }
-
-  // Unregister for push notifications
-  $scope.unregister = function() {
-    //MFPPush.unregister(null, null);
-    $scope.push.status = "Not Registered for Push";
-    $scope.push.class_status = "text-red";
-  }
+  // Update the list of available tags
+  $scope.fillTagList = function() {
+    if ($scope.registered) {
+      MFPPush.retrieveAvailableTags(function(tags) {
+        $scope.tagList = []
+        $scope.$evalAsync(function() {
+          for (var i in tags) {
+            $scope.tagList.push({
+              name: tags[i], 
+              checked: false, 
+              subscribed: false,
+              class_subscribed: "text-red"
+            });
+          }
+        });
+      }, null);
+      // UPDATE LIST TO INDICATE SUBSCRIBED TAGS
+    }
+  };
 
   $scope.getSubscriptionStatus = Push.getSubscriptionStatus;
   $scope.retrieveAvailableTags = Push.retrieveAvailableTags;
@@ -267,7 +286,7 @@ module.controller('SettingsCtrl', function($scope, Settings) {
       $scope.settings.push.class_enabledIcon = "ion-android-notifications-off";
   });
 
-  
+
   // Watch push types and update push settings when changed
   $scope.$watch("settings.push.type", function() {
     var pushAlert = $scope.settings.push.type.alert;

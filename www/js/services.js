@@ -92,12 +92,6 @@ angular.module('starter.services', [])
 
 .factory('Settings', function() {
 
-  var setPushSettings = function(pushAlert, pushBadge, pushSound) {
-    settings.push.ios.alert = pushAlert;
-    settings.push.ios.badge = pushBadge;
-    settings.push.ios.sound = pushSound;
-  }
-
   var settings = {
     logger: {
 
@@ -114,9 +108,20 @@ angular.module('starter.services', [])
     }
   };
 
+  var getPushSettings = function() {
+    return settings.push;
+  }
+
+  var setPushSettings = function(pushAlert, pushBadge, pushSound) {
+    settings.push.ios.alert = pushAlert;
+    settings.push.ios.badge = pushBadge;
+    settings.push.ios.sound = pushSound;
+  }
+
+
   return {
-    setPushSettings: setPushSettings,
-    settings: settings
+    getPushSettings: getPushSettings,
+    setPushSettings: setPushSettings
   }
 })
 

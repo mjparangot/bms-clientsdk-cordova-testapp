@@ -4,21 +4,21 @@
  		<div class="list card">
       		<div class="item item-divider" ng-class="push.class_status">{{push.status}}</div>
       		<div class="item">
-		 		<button class="button button-block button-balanced" ng-click="register()">Register</button>
-		 		<button class="button button-block button-assertive" ng-click="unregister()">Unregister</button>
+		 		<button class="button button-block button-balanced" ng-disabled="$root.bluemixInit"  ng-click="register()">Register</button>
+		 		<button class="button button-block button-assertive" ng-disabled="$root.bluemixInit" ng-click="unregister()">Unregister</button>
 		 	</div>
       	</div>
 
  		<div class="list card">
       		<div class="item item-divider">MFPPush</div>
  			<div class="item">
-		 		<button class="button button-block button-positive" ng-click="getSubscriptionStatus()">
+		 		<button class="button button-block button-positive" ng-disabled="$root.bluemixInit" ng-click="getSubscriptionStatus()">
 		          Get Subscription Status
 		        </button>
-		        <button class="button button-block button-calm" ng-click="retrieveAvailableTags()">
+		        <button class="button button-block button-calm" ng-disabled="$root.bluemixInit" ng-click="retrieveAvailableTags()">
 		          Retrieve Available Tags
 		        </button>
-		 		<button class="button button-block button-stable" ng-click="fillTagList()">Update Available Tags</button>
+		 		<button class="button button-block button-stable" ng-disabled="$root.bluemixInit" ng-click="fillTagList()">Update Available Tags</button>
 		    </div>
 	    </div>
 
@@ -42,8 +42,8 @@
 		        </ion-checkbox>
 	        </div>
 	        <div class="button-bar">
-	        	<a class="button button-assertive" ng-click="unsubscribe()">Unsubscribe</a>
-		    	<a class="button button-balanced" ng-click="subscribe()">Subscribe</a>
+	        	<a class="button button-assertive" ng-disabled="$root.bluemixInit" ng-click="unsubscribe()">Unsubscribe</a>
+		    	<a class="button button-balanced" ng-disabled="$root.bluemixInit" ng-click="subscribe()">Subscribe</a>
 		    </div>
  		</div>
 	</ion-content>

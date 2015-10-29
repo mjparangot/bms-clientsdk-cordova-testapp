@@ -38,3 +38,17 @@
 .text-green {
 	color: green;
 }
+
+/* Color palette for button based off Bluemix colors */
+.bms-darkest {
+	background-color: #224455;
+}
+.bms-dark {
+	background-color: #6699aa;
+}
+.bms-light {
+	background-color: #77ccff;
+}
+.bms-lightest {
+	background-color: #ccdddd;
+}

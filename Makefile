@@ -1,8 +1,12 @@
 all:
-	make clean && make add
-all_ios:
+	make clean && make add && make build_ios && make build_droid
+all_ios_build:
+	make clean && make add && make build_ios
+all_droid_build:
+	make clean && make add && make build_droid
+all_ios_run:
 	make clean && make add && make run_ios
-all_droid:
+all_droid_run:
 	make clean && make add && make run_droid
 list:
 	cordova plugin list

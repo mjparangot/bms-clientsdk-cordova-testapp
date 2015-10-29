@@ -6,7 +6,7 @@
         	<div class="item item-divider">
         		Logger
         	</div>
-    	    <ion-toggle class="item item-icon-left" ng-model="settings.logger.enabled">
+    	    <ion-toggle class="item item-icon-left" ng-disabled="$root.bluemixInit" ng-model="settings.logger.enabled">
             <i class="icon ion-document-text"></i>
             Persist Log Data
     	    </ion-toggle>
@@ -38,7 +38,7 @@
         <div class="item item-divider">
           Analytics
         </div>
-        <ion-toggle class="item item-icon-left" ng-model="settings.analytics.enabled">
+        <ion-toggle class="item item-icon-left" ng-disabled="$root.bluemixInit" ng-model="settings.analytics.enabled">
           <i class="icon ion-ios-analytics"></i>
           Save Analytics
         </ion-toggle>
@@ -48,19 +48,19 @@
         <div class="item item-divider">
           Push Notifications
         </div>
-        <ion-toggle class="item item-icon-left" ng-model="settings.push.enabled">
+        <ion-toggle class="item item-icon-left" ng-disabled="$root.bluemixInit" ng-model="settings.push.enabled">
           <i class="icon" ng-class="settings.push.class_enabledIcon"></i>
           Send Notifications
         </ion-toggle>
-        <ion-toggle class="item item-icon-left" ng-model="settings.push.type.alert">
+        <ion-toggle class="item item-icon-left" ng-disabled="$root.bluemixInit" ng-model="settings.push.type.alert">
           <i class="icon ion-alert"></i>
           Alerts
         </ion-toggle>
-        <ion-toggle class="item item-icon-left" ng-model="settings.push.type.badge">
+        <ion-toggle class="item item-icon-left" ng-disabled="$root.bluemixInit" ng-model="settings.push.type.badge">
           <i class="icon ion-ios-circle-filled"></i>
           Badges
         </ion-toggle>
-        <ion-toggle class="item item-icon-left" ng-model="settings.push.type.sound">
+        <ion-toggle class="item item-icon-left" ng-disabled="$root.bluemixInit" ng-model="settings.push.type.sound">
           <i class="icon ion-radio-waves"></i>
           Sounds
         </ion-toggle>

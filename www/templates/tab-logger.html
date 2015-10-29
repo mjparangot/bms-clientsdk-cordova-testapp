@@ -8,7 +8,7 @@
           <span class="input-label">Name</span>
           <input type="text" ng-model="logger.name" placeholder="Name of logger instance">
         </label>
-        <button class="button button-block button-positive" ng-click="addLoggerInstance()">
+        <button class="button button-block button-positive" ng-disabled="$root.bluemixInit" ng-click="addLoggerInstance()">
           Add Logger Instance
         </button>
       </div>
@@ -44,8 +44,8 @@
         <input type="text" ng-model="logger.message" placeholder="Message">
       </label>
       <div class="button-bar">
-        <a class="button button-logger" ng-class="logger.class_logLevel" ng-click="captureLog()">{{logger.level}}</a>
-        <a class="button button-positive" ng-click="sendLogs()">Send Logs ({{logger.logCount}})</a>
+        <a class="button button-logger" ng-disabled="$root.bluemixInit" ng-class="logger.class_logLevel" ng-click="captureLog()">{{logger.level}}</a>
+        <a class="button button-positive" ng-disabled="$root.bluemixInit" ng-click="sendLogs()">Send Logs ({{logger.logCount}})</a>
       </div>
     </div>
 
