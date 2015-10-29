@@ -220,7 +220,7 @@ module.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
 });
 
 // Settings for all plugin components
-module.controller('SettingsCtrl', function($scope, $timeout) {
+module.controller('SettingsCtrl', function($scope, Settings) {
   $scope.settings = {
     logger: {
       enabled: true,
@@ -232,9 +232,11 @@ module.controller('SettingsCtrl', function($scope, $timeout) {
     push: {
       class_enabledIcon: "ion-android-notifications-off",
       enabled: false,
-      alertEnabled: true,
-      badgeEnabled: true,
-      soundEnabled: true
+      type: {
+        alert: true,
+        badge: true,
+        sound: true
+      }
     }
   };
 
@@ -247,6 +249,7 @@ module.controller('SettingsCtrl', function($scope, $timeout) {
     });
   };
 
+  // Watch set capture option and set capture when enabled
   $scope.$watch("settings.logger.enabled", function() {
     MFPLogger.setCapture($scope.settings.logger.enabled);
   });
@@ -263,5 +266,14 @@ module.controller('SettingsCtrl', function($scope, $timeout) {
     else
       $scope.settings.push.class_enabledIcon = "ion-android-notifications-off";
   });
+
+  
+  // Watch push types and update push settings when changed
+  $scope.$watch("settings.push.type", function() {
+    var pushAlert = $scope.settings.push.type.alert;
+    var pushBadge = $scope.settings.push.type.badge;
+    var pushSound = $scope.settings.push.type.sound;
+    Settings.setPushSettings(pushAlert, pushBadge, pushSound);
+  }, true);
 });
 

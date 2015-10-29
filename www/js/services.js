@@ -92,10 +92,10 @@ angular.module('starter.services', [])
 
 .factory('Settings', function() {
 
-  var setPushSettings = function(alert, badge, sound) {
-    settings[push][ios][alert] = alert;
-    settings[push][ios][badge] = badge;
-    settings[push][ios][sound] = sound;
+  var setPushSettings = function(pushAlert, pushBadge, pushSound) {
+    settings.push.ios.alert = pushAlert;
+    settings.push.ios.badge = pushBadge;
+    settings.push.ios.sound = pushSound;
   }
 
   var settings = {
