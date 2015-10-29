@@ -52,6 +52,18 @@
           <i class="icon" ng-class="settings.push.class_enabledIcon"></i>
           Send Notifications
         </ion-toggle>
+        <ion-toggle class="item item-icon-left" ng-model="settings.push.alertEnabled">
+          <i class="icon ion-ios-analytics"></i>
+          Alerts
+        </ion-toggle>
+        <ion-toggle class="item item-icon-left" ng-model="settings.push.badgeEnabled">
+          <i class="icon ion-ios-analytics"></i>
+          Badges
+        </ion-toggle>
+        <ion-toggle class="item item-icon-left" ng-model="settings.push.soundEnabled">
+          <i class="icon ion-ios-analytics"></i>
+          Sounds
+        </ion-toggle>
       </push>
     </ion-list>
   </ion-content>

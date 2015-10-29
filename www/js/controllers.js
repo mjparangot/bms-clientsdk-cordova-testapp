@@ -129,7 +129,20 @@ module.controller('LoggerCtrl', function($scope, Loggers) {
 });
 
 // MFPPush
-module.controller('PushCtrl', function($scope, Push) {
+module.controller('PushCtrl', function($scope, Push, Settings) {
+
+  // tag: { 
+  //  name: tags[i], 
+  //  checked: bool, 
+  //  subscribed: bool,
+  //  class_subscribed: "text-red" 
+  // }
+  $scope.tagList = [];
+
+  $scope.push = {
+    status: "Not Registered for Push",
+    class_status: "text-red"
+  };
 
   // Update the list of available tags
   $scope.fillTagList = function() {
@@ -146,7 +159,6 @@ module.controller('PushCtrl', function($scope, Push) {
         }
       });
     }, null);
-
     // UPDATE LIST TO INDICATE SUBSCRIBED TAGS
   };
 
@@ -161,7 +173,12 @@ module.controller('PushCtrl', function($scope, Push) {
         tags.push($scope.tagList[i].name);
       }
     }
-    //MFPPush.subscribeToTags(tags, null, null);
+    alert(tags);
+    MFPPush.subscribeToTags(tags, function(success) {
+      alert(success);
+    }, function(failure) {
+      alert(failure);
+    });
   };
 
   // Unsubscribe from all checked tags
@@ -178,11 +195,23 @@ module.controller('PushCtrl', function($scope, Push) {
     //MFPPush.unsubscribeFromTags(tags, null, null);
   };
 
+  // Register for push notifications
+  $scope.register = function() {
+    //MFPPush.register(Push.getPushSettings(), null, null);
+    alert(JSON.stringify(Settings.settings));
+    $scope.push.status = "Registered for Push";
+    $scope.push.class_status = "text-green";
+  }
+
+  // Unregister for push notifications
+  $scope.unregister = function() {
+    //MFPPush.unregister(null, null);
+    $scope.push.status = "Not Registered for Push";
+    $scope.push.class_status = "text-red";
+  }
+
   $scope.getSubscriptionStatus = Push.getSubscriptionStatus;
   $scope.retrieveAvailableTags = Push.retrieveAvailableTags;
-
-  // tag: { name: tags[i], subscribed: false }
-  $scope.tagList = [];
 });
 
 // Chats Detail example
@@ -202,7 +231,10 @@ module.controller('SettingsCtrl', function($scope, $timeout) {
     },
     push: {
       class_enabledIcon: "ion-android-notifications-off",
-      enabled: false
+      enabled: false,
+      alertEnabled: true,
+      badgeEnabled: true,
+      soundEnabled: true
     }
   };
 

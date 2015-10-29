@@ -70,7 +70,7 @@ angular.module('starter.services', [])
   
   var getSubscriptionStatus = function() {
     MFPPush.getSubscriptionStatus(function(success) {
-      alert(success);
+      alert(success["subscriptions"]);
     }, function(failure) {
       alert(failure);
     });
@@ -87,6 +87,36 @@ angular.module('starter.services', [])
   return {
     getSubscriptionStatus: getSubscriptionStatus,
     retrieveAvailableTags: retrieveAvailableTags
+  }
+})
+
+.factory('Settings', function() {
+
+  var setPushSettings = function(alert, badge, sound) {
+    settings[push][ios][alert] = alert;
+    settings[push][ios][badge] = badge;
+    settings[push][ios][sound] = sound;
+  }
+
+  var settings = {
+    logger: {
+
+    },
+    push: {
+      ios: {
+        alert: true,
+        badge: true,
+        sound: true
+      },
+      android: {
+
+      }
+    }
+  };
+
+  return {
+    setPushSettings: setPushSettings,
+    settings: settings
   }
 })
 

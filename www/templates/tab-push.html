@@ -1,6 +1,27 @@
 <ion-view view-title="Push">
  	<ion-content class="padding">
- 		<button class="button button-block button-stable" ng-click="fillTagList()">Update Available Tags</button>
+
+ 		<div class="list card">
+      		<div class="item item-divider" ng-class="push.class_status">{{push.status}}</div>
+      		<div class="item">
+		 		<button class="button button-block button-balanced" ng-click="register()">Register</button>
+		 		<button class="button button-block button-assertive" ng-click="unregister()">Unregister</button>
+		 	</div>
+      	</div>
+
+ 		<div class="list card">
+      		<div class="item item-divider">MFPPush</div>
+ 			<div class="item">
+		 		<button class="button button-block button-positive" ng-click="getSubscriptionStatus()">
+		          Get Subscription Status
+		        </button>
+		        <button class="button button-block button-calm" ng-click="retrieveAvailableTags()">
+		          Retrieve Available Tags
+		        </button>
+		 		<button class="button button-block button-stable" ng-click="fillTagList()">Update Available Tags</button>
+		    </div>
+	    </div>
+
  		<div class="list card">
       		<div class="item item-divider">
       			<div class="row no-space">
@@ -25,16 +46,5 @@
 		    	<a class="button button-balanced" ng-click="subscribe()">Subscribe</a>
 		    </div>
  		</div>
- 		<div class="list card">
-      		<div class="item item-divider">MFPPush</div>
- 			<div class="item">
-		 		<button class="button button-block button-positive" ng-click="getSubscriptionStatus()">
-		          Get Subscription Status
-		        </button>
-		        <button class="button button-block button-calm" ng-click="retrieveAvailableTags()">
-		          Retrieve Available Tags
-		        </button>
-		    </div>
-	    </div>
 	</ion-content>
 </ion-view>
