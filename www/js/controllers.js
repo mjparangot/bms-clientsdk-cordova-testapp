@@ -212,20 +212,42 @@ module.controller('PushCtrl', function($scope, Push, Settings) {
   // Update the list of available tags
   $scope.fillTagList = function() {
     if ($scope.registered) {
-      MFPPush.retrieveAvailableTags(function(tags) {
-        $scope.tagList = []
-        $scope.$evalAsync(function() {
-          for (var i in tags) {
-            $scope.tagList.push({
-              name: tags[i], 
-              checked: false, 
-              subscribed: false,
-              class_subscribed: "text-red"
-            });
-          }
-        });
-      }, null);
-      // UPDATE LIST TO INDICATE SUBSCRIBED TAGS
+      
+      MFPPush.getSubscriptionStatus(function(success) {
+        var subs = success["subscriptions"];
+        MFPPush.retrieveAvailableTags(function(tags) {
+          $scope.tagList = [];
+          $scope.$evalAsync(function() {
+
+            for (var i in tags) {
+              var tagName = tags[i];
+              // Device IS NOT subscribed to tag
+              if (subs.indexOf(tagName) == -1) {
+                $scope.tagList.push({
+                  name: tagName,
+                  checked: false,
+                  subscribed: false,
+                  class_subscribed: "text-red"
+                });
+              }
+              // Device IS subscribed to tag
+              else {
+                $scope.tagList.push({
+                  name: tagName,
+                  checked: false,
+                  subscribed: true,
+                  class_subscribed: "text-green"
+                });
+              } 
+            }
+
+          });
+
+        }, null);
+
+      }, function(error) {
+        return;
+      });
     }
   };
 
