@@ -214,7 +214,7 @@ module.controller('PushCtrl', function($scope, Push, Settings) {
     if ($scope.registered) {
       
       MFPPush.getSubscriptionStatus(function(success) {
-        var subs = success["subscriptions"];
+        var subs = success;
         MFPPush.retrieveAvailableTags(function(tags) {
           $scope.tagList = [];
           $scope.$evalAsync(function() {

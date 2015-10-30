@@ -70,7 +70,7 @@ angular.module('starter.services', [])
   
   var getSubscriptionStatus = function() {
     MFPPush.getSubscriptionStatus(function(success) {
-      alert(success["subscriptions"]);
+      alert(success);
     }, function(failure) {
       alert(failure);
     });
