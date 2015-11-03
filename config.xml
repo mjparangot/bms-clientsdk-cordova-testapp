@@ -8,6 +8,8 @@
       Ionic Framework Team
     </author>
   <content src="index.html"/>
+  <!-- Uncomment to run unit tests and comment above line -->
+  <!--<content src="cdvtests/index.html"/>-->
   <access origin="*"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
