@@ -151,8 +151,8 @@ module.controller('PushCtrl', function($scope, Push, Settings) {
   };
 
   // Register for push notifications
-  $scope.register = function() {
-    MFPPush.register(Settings.getPushSettings(), null, null);
+  $scope.registerDevice = function() {
+    MFPPush.registerDevice(Settings.getPushSettings(), null, null);
     alert(JSON.stringify(Settings.getPushSettings(), null, 4));
     $scope.registered = true;
     $scope.push.status = "Registered for Push";
@@ -160,8 +160,8 @@ module.controller('PushCtrl', function($scope, Push, Settings) {
   }
 
   // Unregister for push notifications
-  $scope.unregister = function() {
-    MFPPush.unregister(null, null);
+  $scope.unregisterDevice = function() {
+    MFPPush.unregisterDevice(null, null);
     $scope.registered = false;
     $scope.push.status = "Not Registered for Push";
     $scope.push.class_status = "text-red";
@@ -183,7 +183,7 @@ module.controller('PushCtrl', function($scope, Push, Settings) {
       }
     }
     // Cordova Subscribe function
-    MFPPush.subscribeToTags(tags, function(success) {
+    MFPPush.subscribe(tags, function(success) {
       alert(success);
     }, function(failure) {
       alert(failure);
@@ -202,7 +202,7 @@ module.controller('PushCtrl', function($scope, Push, Settings) {
       }
     }
     // Cordova Unsubscribe function
-    MFPPush.unsubscribeFromTags(tags, function(success) {
+    MFPPush.unsubscribe(tags, function(success) {
       alert(success);
     }, function(failure) {
       alert(failure);
@@ -213,7 +213,7 @@ module.controller('PushCtrl', function($scope, Push, Settings) {
   $scope.fillTagList = function() {
     if ($scope.registered) {
       
-      MFPPush.getSubscriptionStatus(function(success) {
+      MFPPush.retrieveSubscriptionStatus(function(success) {
         var subs = success;
         MFPPush.retrieveAvailableTags(function(tags) {
           $scope.tagList = [];
@@ -251,7 +251,7 @@ module.controller('PushCtrl', function($scope, Push, Settings) {
     }
   };
 
-  $scope.getSubscriptionStatus = Push.getSubscriptionStatus;
+  $scope.retrieveSubscriptionStatus = Push.retrieveSubscriptionStatus;
   $scope.retrieveAvailableTags = Push.retrieveAvailableTags;
 });
 

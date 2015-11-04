@@ -4,15 +4,15 @@
  		<div class="list card">
       		<div class="item item-divider" ng-class="push.class_status">{{push.status}}</div>
       		<div class="item">
-		 		<button class="button button-block button-balanced" ng-disabled="$root.bluemixInit"  ng-click="register()">Register</button>
-		 		<button class="button button-block button-assertive" ng-disabled="$root.bluemixInit" ng-click="unregister()">Unregister</button>
+		 		<button class="button button-block button-balanced" ng-disabled="$root.bluemixInit"  ng-click="registerDevice()">Register</button>
+		 		<button class="button button-block button-assertive" ng-disabled="$root.bluemixInit" ng-click="unregisterDevice()">Unregister</button>
 		 	</div>
       	</div>
 
  		<div class="list card">
       		<div class="item item-divider">MFPPush</div>
  			<div class="item">
-		 		<button class="button button-block button-positive" ng-disabled="$root.bluemixInit" ng-click="getSubscriptionStatus()">
+		 		<button class="button button-block button-positive" ng-disabled="$root.bluemixInit" ng-click="retrieveSubscriptionStatus()">
 		          Get Subscription Status
 		        </button>
 		        <button class="button button-block button-calm" ng-disabled="$root.bluemixInit" ng-click="retrieveAvailableTags()">
