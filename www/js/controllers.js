@@ -1,5 +1,13 @@
 var module = angular.module('starter.controllers', []);
 
+var success = function(res) {
+  console.log(res);
+};
+
+var failure = function(res) {
+  console.log(res);
+};
+
 module.run(function($rootScope) {
     $rootScope.bluemixInit = true;
 });
@@ -70,7 +78,12 @@ module.controller('LoggerCtrl', function($scope, Loggers) {
     level: "INFO",
     logCount: 0,
     class_logLevel: "button-stable",
-    loggers: {},
+    loggers: {
+      //default logger used for debugging
+      logger: {
+        name: MFPLogger.getInstance("logger")
+      }
+    },
   };
 
   //$scope.logger.class_logLevel = Loggers.getLogLevelClass($scope.logger.level);
@@ -152,7 +165,7 @@ module.controller('PushCtrl', function($scope, Push, Settings) {
 
   // Register for push notifications
   $scope.registerDevice = function() {
-    MFPPush.registerDevice(Settings.getPushSettings(), null, null);
+    MFPPush.registerDevice(Settings.getPushSettings(), success, failure);
     alert(JSON.stringify(Settings.getPushSettings(), null, 4));
     $scope.registered = true;
     $scope.push.status = "Registered for Push";
@@ -161,7 +174,7 @@ module.controller('PushCtrl', function($scope, Push, Settings) {
 
   // Unregister for push notifications
   $scope.unregisterDevice = function() {
-    MFPPush.unregisterDevice(null, null);
+    MFPPush.unregisterDevice(success, failure);
     $scope.registered = false;
     $scope.push.status = "Not Registered for Push";
     $scope.push.class_status = "text-red";
@@ -184,9 +197,9 @@ module.controller('PushCtrl', function($scope, Push, Settings) {
     }
     // Cordova Subscribe function
     MFPPush.subscribe(tags, function(success) {
-      alert(success);
+      alert(JSON.stringify(success));
     }, function(failure) {
-      alert(failure);
+      alert(JSON.stringify(failure));
     });
   };
 
@@ -203,9 +216,9 @@ module.controller('PushCtrl', function($scope, Push, Settings) {
     }
     // Cordova Unsubscribe function
     MFPPush.unsubscribe(tags, function(success) {
-      alert(success);
+      alert(JSON.stringify(success));
     }, function(failure) {
-      alert(failure);
+      alert(JSON.stringify(failure));
     });
   };
 
