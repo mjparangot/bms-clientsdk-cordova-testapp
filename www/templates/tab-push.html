@@ -18,7 +18,7 @@
 		        <button class="button button-block button-calm" ng-disabled="$root.bluemixInit" ng-click="retrieveAvailableTags()">
 		          Retrieve Available Tags
 		        </button>
-		 		<button class="button button-block button-stable" ng-disabled="$root.bluemixInit" ng-click="fillTagList()">Update Available Tags</button>
+		 		<button class="button button-block button-stable" ng-disabled="$root.bluemixInit" ng-click="updateAvailableTags()">Update Available Tags</button>
 		    </div>
 	    </div>
 
@@ -30,7 +30,7 @@
       			</div>
       		</div>
   		    <div class="list no-space">
-		        <ion-checkbox ng-repeat="item in tagList" ng-model="item.checked">
+		        <ion-radio ng-repeat="item in tagList" ng-model="push.tagSelected" ng-value="item.name">
 	  		    	<div class="row">
 			        	<div class="col col-80">
 			        		{{ item.name }}
@@ -39,7 +39,7 @@
 			        		{{ item.subscribed }}
 			        	</div>
 				    </div>
-		        </ion-checkbox>
+		        </ion-radio>
 	        </div>
 	        <div class="button-bar">
 	        	<a class="button button-assertive" ng-disabled="$root.bluemixInit" ng-click="unsubscribe()">Unsubscribe</a>

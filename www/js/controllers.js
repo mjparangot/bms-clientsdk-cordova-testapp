@@ -150,8 +150,7 @@ module.controller('LoggerCtrl', function($scope, Loggers) {
 module.controller('PushCtrl', function($scope, Push, Settings) {
 
   // tag: { 
-  //  name: tags[i], 
-  //  checked: bool, 
+  //  name: string,
   //  subscribed: bool,
   //  class_subscribed: "text-red" 
   // }
@@ -160,7 +159,8 @@ module.controller('PushCtrl', function($scope, Push, Settings) {
   $scope.push = {
     registered: false,
     status: "Not Registered for Push",
-    class_status: "text-red"
+    class_status: "text-red",
+    tagSelected: null
   };
 
   // Register for push notifications
@@ -186,46 +186,59 @@ module.controller('PushCtrl', function($scope, Push, Settings) {
 
   // Subscribe to all checked tags
   $scope.subscribe = function() {
-    var tags = [];
-    for (var i in $scope.tagList) {
-      if ($scope.tagList[i].checked) {
-        $scope.tagList[i].subscribed = true;
-        $scope.tagList[i].checked = false;
-        $scope.tagList[i].class_subscribed = "text-green";
-        tags.push($scope.tagList[i].name);
-      }
+
+    // CAN OPTIMIZE: USE MAP INSTEAD OF SEARCHING THROUGH TAGLIST ARRAY
+    // Update subscribed status of tag
+    var i = 0
+    while ($scope.tagList[i].name != $scope.push.tagSelected && i < $scope.tagList.length) {
+      i++;
     }
-    // Cordova Subscribe function
-    MFPPush.subscribe(tags, function(success) {
-      alert(JSON.stringify(success));
-    }, function(failure) {
-      alert(JSON.stringify(failure));
-    });
+    if (i < $scope.tagList.length) {
+      // Cordova Subscribe function
+      MFPPush.subscribe($scope.push.tagSelected, function(success) {
+        alert(JSON.stringify(success));
+      }, function(failure) {
+        alert(JSON.stringify(failure));
+      });
+
+      // Update available tag list
+      $scope.$evalAsync(function() {
+        $scope.tagList[i].subscribed = true;
+        $scope.tagList[i].class_subscribed = "text-green";
+        $scope.push.tagSelected = null;
+      });
+    }
   };
 
   // Unsubscribe from all checked tags
   $scope.unsubscribe = function() {
-    var tags = [];
-    for (var i in $scope.tagList) {
-      if ($scope.tagList[i].checked) {
-        $scope.tagList[i].subscribed = false;
-        $scope.tagList[i].checked = false;
-        $scope.tagList[i].class_subscribed = "text-red";
-        tags.push($scope.tagList[i].name);
-      }
+
+    // CAN OPTIMIZE: USE MAP INSTEAD OF SEARCHING THROUGH TAGLIST ARRAY
+    // Update subscribed status of tag
+    var i = 0
+    while ($scope.tagList[i].name != $scope.push.tagSelected && i < $scope.tagList.length) {
+      i++;
     }
-    // Cordova Unsubscribe function
-    MFPPush.unsubscribe(tags, function(success) {
-      alert(JSON.stringify(success));
-    }, function(failure) {
-      alert(JSON.stringify(failure));
-    });
+    if (i < $scope.tagList.length) {
+      // Cordova Subscribe function
+      MFPPush.unsubscribe($scope.push.tagSelected, function(success) {
+        alert(JSON.stringify(success));
+      }, function(failure) {
+        alert(JSON.stringify(failure));
+      });
+
+      // Update available tag list
+      $scope.$evalAsync(function() {
+        $scope.tagList[i].subscribed = false;
+        $scope.tagList[i].class_subscribed = "text-red";
+        $scope.push.tagSelected = null;
+      });
+    }
   };
 
   // Update the list of available tags
-  $scope.fillTagList = function() {
+  $scope.updateAvailableTags = function() {
     if ($scope.registered) {
-      
       MFPPush.retrieveSubscriptionStatus(function(success) {
         var subs = success;
         MFPPush.retrieveAvailableTags(function(tags) {
@@ -238,7 +251,6 @@ module.controller('PushCtrl', function($scope, Push, Settings) {
               if (subs.indexOf(tagName) == -1) {
                 $scope.tagList.push({
                   name: tagName,
-                  checked: false,
                   subscribed: false,
                   class_subscribed: "text-red"
                 });
@@ -247,13 +259,12 @@ module.controller('PushCtrl', function($scope, Push, Settings) {
               else {
                 $scope.tagList.push({
                   name: tagName,
-                  checked: false,
                   subscribed: true,
                   class_subscribed: "text-green"
                 });
               } 
             }
-
+            $scope.push.tagSelected = null;
           });
 
         }, null);
@@ -261,6 +272,9 @@ module.controller('PushCtrl', function($scope, Push, Settings) {
       }, function(error) {
         return;
       });
+    }
+    else {
+      alert("Not registered for push notifications!");
     }
   };
 
