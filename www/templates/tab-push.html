@@ -12,13 +12,13 @@
  		<div class="list card">
       		<div class="item item-divider">MFPPush</div>
  			<div class="item">
-		 		<button class="button button-block button-positive" ng-disabled="$root.bluemixInit" ng-click="retrieveSubscriptionStatus()">
+		 		<button class="button button-block button-positive" ng-disabled="$root.pushDisabled" ng-click="retrieveSubscriptionStatus()">
 		          Get Subscription Status
 		        </button>
-		        <button class="button button-block button-calm" ng-disabled="$root.bluemixInit" ng-click="retrieveAvailableTags()">
+		        <button class="button button-block button-calm" ng-disabled="$root.pushDisabled" ng-click="retrieveAvailableTags()">
 		          Retrieve Available Tags
 		        </button>
-		 		<button class="button button-block button-stable" ng-disabled="$root.bluemixInit" ng-click="updateAvailableTags()">Update Available Tags</button>
+		 		<button class="button button-block button-stable" ng-disabled="$root.pushDisabled" ng-click="updateAvailableTags()">Update Available Tags</button>
 		    </div>
 	    </div>
 
@@ -42,8 +42,8 @@
 		        </ion-radio>
 	        </div>
 	        <div class="button-bar">
-	        	<a class="button button-assertive" ng-disabled="$root.bluemixInit" ng-click="unsubscribe()">Unsubscribe</a>
-		    	<a class="button button-balanced" ng-disabled="$root.bluemixInit" ng-click="subscribe()">Subscribe</a>
+	        	<a class="button button-assertive" ng-disabled="$root.pushDisabled" ng-click="unsubscribe()">Unsubscribe</a>
+		    	<a class="button button-balanced" ng-disabled="$root.pushDisabled" ng-click="subscribe()">Subscribe</a>
 		    </div>
  		</div>
 	</ion-content>

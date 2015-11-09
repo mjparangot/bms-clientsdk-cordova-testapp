@@ -10,6 +10,7 @@ var failure = function(res) {
 
 module.run(function($rootScope) {
     $rootScope.bluemixInit = true;
+    $rootScope.pushDisabled = true;
 });
 
 //BMSClient and MFPRequest
@@ -147,7 +148,7 @@ module.controller('LoggerCtrl', function($scope, Loggers) {
 });
 
 // MFPPush
-module.controller('PushCtrl', function($scope, Push, Settings) {
+module.controller('PushCtrl', function($scope, $rootScope, Push, Settings) {
 
   // tag: { 
   //  name: string,
@@ -170,6 +171,7 @@ module.controller('PushCtrl', function($scope, Push, Settings) {
     $scope.registered = true;
     $scope.push.status = "Registered for Push";
     $scope.push.class_status = "text-green";
+    $rootScope.pushDisabled = false;
   }
 
   // Unregister for push notifications
@@ -178,6 +180,7 @@ module.controller('PushCtrl', function($scope, Push, Settings) {
     $scope.registered = false;
     $scope.push.status = "Not Registered for Push";
     $scope.push.class_status = "text-red";
+    $rootScope.pushDisabled = true;
     // Clear tag list 
     $scope.$evalAsync(function() {
       $scope.tagList = [];
