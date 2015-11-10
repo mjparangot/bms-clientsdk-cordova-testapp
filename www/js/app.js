@@ -25,6 +25,12 @@ app.run(function($ionicPlatform) {
 
     // Initialize BMSClient with Route and GUID
     //BMSClient.initialize("https://HelloMatt.mybluemix.net", "36fe7be8-5eda-42c0-bf2c-19ced26a3278"); 
+    
+    var notification = function(message) {
+      console.log(message);
+    }
+
+    MFPPush.registerNotificationsCallback(notification);
 
   });
 });
