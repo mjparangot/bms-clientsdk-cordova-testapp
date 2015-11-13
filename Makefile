@@ -15,9 +15,9 @@ add:
 	cordova plugin add ../mfppush-development/mfppush-plugin
 	cordova plugin add ../mfppush-development/mfppush-plugin/tests
 clean:
-	cordova plugin remove ibm-mfp-core
 	cordova plugin remove ibm-mfp-push
 	cordova plugin remove ibm-mfp-push-tests
+	cordova plugin remove ibm-mfp-core
 pf_ios:
 	cordova platform add ios
 pf_droid:

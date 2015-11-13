@@ -28,6 +28,7 @@ app.run(function($ionicPlatform) {
     
     var notification = function(message) {
       console.log(message);
+      alert("Body:\n\n" + message.aps.alert.body + "\n\nPayload:\n\n" + message.aps.payload);
     }
 
     MFPPush.registerNotificationsCallback(notification);
