@@ -302,7 +302,7 @@ module.controller('SettingsCtrl', function($scope, Settings) {
     },
     push: {
       class_enabledIcon: "ion-android-notifications-off",
-      enabled: false,
+      enabled: true,
       type: {
         alert: true,
         badge: true,
