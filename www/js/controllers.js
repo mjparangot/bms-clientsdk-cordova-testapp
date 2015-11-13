@@ -81,9 +81,7 @@ module.controller('LoggerCtrl', function($scope, Loggers) {
     class_logLevel: "button-stable",
     loggers: {
       //default logger used for debugging
-      logger: {
-        name: MFPLogger.getInstance("logger")
-      }
+      logger: {}
     },
   };
 
