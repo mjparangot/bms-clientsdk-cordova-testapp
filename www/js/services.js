@@ -101,9 +101,6 @@ angular.module('starter.services', [])
         alert: true,
         badge: true,
         sound: true
-      },
-      android: {
-
       }
     }
   };
