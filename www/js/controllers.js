@@ -164,24 +164,42 @@ module.controller('PushCtrl', function($scope, $rootScope, Push, Settings) {
 
   // Register for push notifications
   $scope.registerDevice = function() {
-    MFPPush.registerDevice(Settings.getPushSettings(), success, failure);
-    alert(JSON.stringify(Settings.getPushSettings(), null, 4));
-    $scope.registered = true;
-    $scope.push.status = "Registered for Push";
-    $scope.push.class_status = "text-green";
-    $rootScope.pushDisabled = false;
+    
+    MFPPush.registerDevice(Settings.getPushSettings(), function(success) {
+
+      alert(JSON.stringify(success, null, 4));
+      $scope.registered = true;
+      $scope.push.status = "Registered for Push";
+      $scope.push.class_status = "text-green";
+      $rootScope.pushDisabled = false;
+
+    }, function(failure) {
+
+      alert(JSON.stringify(failure, null, 4));
+
+    });
   }
 
   // Unregister for push notifications
   $scope.unregisterDevice = function() {
-    MFPPush.unregisterDevice(success, failure);
-    $scope.registered = false;
-    $scope.push.status = "Not Registered for Push";
-    $scope.push.class_status = "text-red";
-    $rootScope.pushDisabled = true;
-    // Clear tag list 
-    $scope.$evalAsync(function() {
-      $scope.tagList = [];
+
+    MFPPush.unregisterDevice(function(success) {
+
+      alert(success);
+
+      $scope.registered = false;
+      $scope.push.status = "Not Registered for Push";
+      $scope.push.class_status = "text-red";
+      $rootScope.pushDisabled = true;
+      // Clear tag list 
+      $scope.$evalAsync(function() {
+        $scope.tagList = [];
+      });
+
+    }, function(failure) {
+
+      alert(failure);
+
     });
   }
 
