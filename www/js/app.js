@@ -8,7 +8,7 @@
 
 var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.services']);
 
-app.run(function($ionicPlatform) {
+app.run(function($ionicPlatform, $ionicPopup, $timeout) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -28,10 +28,29 @@ app.run(function($ionicPlatform) {
     
     var notification = function(message) {
       console.log(message);
-      alert("Body:\n\n" + message.aps.alert.body + "\n\nPayload:\n\n" + message.payload);
-    }
+      //alert("Body:\n\n" + message.aps.alert.body + "\n\nPayload:\n\n" + message.payload);
+    };
 
-    MFPPush.registerNotificationsCallback(notification);
+    var showNotification = function(message) {
+
+      console.log(message);
+
+      var body = message.aps.alert.body;
+      var payload = message.payload
+
+      var notifAlert = {
+        title: "Notification",
+        template: body + "\n\n" + payload
+      }
+
+      var alertPopup = $ionicPopup.alert(notifAlert);
+
+      $timeout(function() {
+        alertPopup.close(); //close the popup after 5 seconds for some reason
+      }, 5 * 1000);
+    };
+
+    MFPPush.registerNotificationsCallback(showNotification);
 
   });
 });
