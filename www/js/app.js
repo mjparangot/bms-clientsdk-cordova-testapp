@@ -46,8 +46,8 @@ app.run(function($ionicPlatform, $ionicPopup, $timeout) {
       var alertPopup = $ionicPopup.alert(notifAlert);
 
       $timeout(function() {
-        alertPopup.close(); //close the popup after 5 seconds for some reason
-      }, 5 * 1000);
+        alertPopup.close(); //close the popup after 10 seconds
+      }, 10 * 1000);
     };
 
     MFPPush.registerNotificationsCallback(showNotification);
