@@ -8,9 +8,26 @@ var failure = function(res) {
   console.log(res);
 };
 
-module.run(function($rootScope) {
+module.run(function($rootScope, $ionicScrollDelegate, $location, $anchorScroll) {
     $rootScope.bluemixInit = true;
     $rootScope.pushDisabled = true;
+
+
+    $rootScope.scrollTop = function(id) {
+      $ionicScrollDelegate.resize();
+      $ionicScrollDelegate.$getByHandle(id).scrollTop();
+    };
+
+    $rootScope.scrollBottom = function(id) {
+      $ionicScrollDelegate.resize();
+      $ionicScrollDelegate.$getByHandle(id).scrollBottom();
+    };
+
+    $rootScope.scrollToAnchor = function(id) {
+      $ionicScrollDelegate.resize();
+      $location.hash(id)
+      $ionicScrollDelegate.$getByHandle('content').anchorScroll();
+    };
 });
 
 //BMSClient and MFPRequest
@@ -41,6 +58,7 @@ module.controller('RequestCtrl', function($scope, $rootScope, Requests) {
     Requests.sendRequest($scope.query.url, $scope.query.method, $scope.query.timeout, function(res) {
       $scope.$evalAsync(function() {
         $scope.query.response = JSON.stringify(res.responseText);
+        $rootScope.scrollBottom('content');
       });
     });
   };
@@ -48,6 +66,7 @@ module.controller('RequestCtrl', function($scope, $rootScope, Requests) {
   $scope.clearResponse = function() {
     $scope.$evalAsync(function() {
       $scope.query.response = "";
+      $rootScope.scrollTop('content');
     });
   };
 });
@@ -70,7 +89,7 @@ module.controller('ChatsCtrl', function($scope, Chats) {
 });
 
 // MFPLogger
-module.controller('LoggerCtrl', function($scope, Loggers) {
+module.controller('LoggerCtrl', function($scope, $ionicModal, Loggers) {
 
   $scope.logger = {
     name: null,
@@ -164,8 +183,12 @@ module.controller('PushCtrl', function($scope, $rootScope, Push, Settings) {
 
   // Register for push notifications
   $scope.registerDevice = function() {
+
+    // async open spinner
     
     MFPPush.registerDevice(Settings.getPushSettings(), function(success) {
+
+      // async close spinner
 
       alert("Successfully registered for push notifications");
       $scope.$evalAsync(function() {
@@ -175,7 +198,11 @@ module.controller('PushCtrl', function($scope, $rootScope, Push, Settings) {
         $rootScope.pushDisabled = false;
       })
 
+
+
     }, function(failure) {
+
+      // async close spinner
 
       alert(failure);
 
@@ -263,7 +290,7 @@ module.controller('PushCtrl', function($scope, $rootScope, Push, Settings) {
   // Update the list of available tags
   $scope.updateAvailableTags = function() {
     if ($scope.registered) {
-      MFPPush.retrieveSubscriptionStatus(function(success) {
+      MFPPush.retrieveSubscriptions(function(success) {
         var subs = success;
         MFPPush.retrieveAvailableTags(function(tags) {
           $scope.tagList = [];
@@ -302,7 +329,7 @@ module.controller('PushCtrl', function($scope, $rootScope, Push, Settings) {
     }
   };
 
-  $scope.retrieveSubscriptionStatus = Push.retrieveSubscriptionStatus;
+  $scope.retrieveSubscriptions = Push.retrieveSubscriptions;
   $scope.retrieveAvailableTags = Push.retrieveAvailableTags;
 });
 
@@ -352,13 +379,15 @@ module.controller('SettingsCtrl', function($scope, Settings) {
     //alert("Log Level: " + $scope.settings.logger.minLogLevel);
   });
 
-  $scope.$watch("settings.push.enabled", function() {
-    if ($scope.settings.push.enabled)
-      $scope.settings.push.class_enabledIcon = "ion-android-notifications";
-    else
-      $scope.settings.push.class_enabledIcon = "ion-android-notifications-off";
+  // Watch save analytics option and set analytics when enabled
+  $scope.$watch("settings.analytics.enabled", function() {
+    if ($scope.settings.analytics.enabled) {
+      MFPAnalytics.disable();
+    }
+    else {
+      MFPAnalytics.enable();
+    }
   });
-
 
   // Watch push types and update push settings when changed
   $scope.$watch("settings.push.type", function() {

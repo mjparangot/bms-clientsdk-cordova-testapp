@@ -26,21 +26,22 @@ app.run(function($ionicPlatform, $ionicPopup, $timeout) {
     // Initialize BMSClient with Route and GUID
     //BMSClient.initialize("https://HelloMatt.mybluemix.net", "36fe7be8-5eda-42c0-bf2c-19ced26a3278"); 
     
-    var notification = function(message) {
-      console.log(message);
-      //alert("Body:\n\n" + message.aps.alert.body + "\n\nPayload:\n\n" + message.payload);
+    var notification = function(notif) {
+      console.log(notif);
+      //alert("Body:\n\n" + notif.aps.alert.message + "\n\nPayload:\n\n" + notif.payload);
     };
 
-    var showNotification = function(message) {
+    var showNotification = function(notif) {
 
-      console.log(message);
+      console.log(notif);
+      console.log(JSON.stringify(notif));
 
-      var body = message.aps.alert.body;
-      var payload = message.payload
+      var message = notif.message
+      var payload = notif.payload
 
       var notifAlert = {
         title: "Notification",
-        template: body + "\n\n" + payload
+        template: message + "\n\n" + payload
       }
 
       var alertPopup = $ionicPopup.alert(notifAlert);
