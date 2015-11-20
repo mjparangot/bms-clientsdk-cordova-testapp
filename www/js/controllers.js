@@ -200,6 +200,9 @@ module.controller('PushCtrl', function($scope, $rootScope, Push, Settings) {
     tagSelected: null
   };
 
+  $scope.$watch("push.tagSelected", function() {});
+
+
   // Register for push notifications
   $scope.registerDevice = function() {
 
