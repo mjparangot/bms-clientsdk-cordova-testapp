@@ -398,7 +398,6 @@ module.controller('SettingsCtrl', function($scope, Settings) {
 
   // Watch set capture option and set capture when enabled
   $scope.$watch("settings.logger.enabled", function() {
-    alert($scope.settings.logger.enabled);
     MFPLogger.setCapture($scope.settings.logger.enabled);
   });
 

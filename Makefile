@@ -28,6 +28,10 @@ pf_ios:
 	cordova platform add ios
 pf_droid:
 	cordova platform add android
+remove_pf_ios:
+	cordova platform add ios
+remove_pf_droid:
+	cordova platform add android
 build_droid:
 	cordova build android
 build_ios:
