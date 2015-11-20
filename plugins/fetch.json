@@ -1,0 +1,92 @@
+{
+    "cordova-plugin-device": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-device"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-console": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-console"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-whitelist": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-whitelist"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-splashscreen": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-splashscreen"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-statusbar": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-statusbar"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "ionic-plugin-keyboard": {
+        "source": {
+            "type": "registry",
+            "id": "ionic-plugin-keyboard"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "org.apache.cordova.statusbar": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.statusbar"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-test-framework": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-test-framework"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "ibm-mfp-core": {
+        "source": {
+            "type": "local",
+            "path": "../mfpcore-development/mfpcore-plugin"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "ibm-mfp-push": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/ibm-bluemix-mobile-services/bms-clientsdk-cordova-plugin-push.git",
+            "subdir": ".",
+            "ref": "development"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "ibm-mfp-push-tests": {
+        "source": {
+            "type": "local",
+            "path": "../mfppush-development/mfppush-plugin/tests"
+        },
+        "is_top_level": true,
+        "variables": {}
+    }
+}

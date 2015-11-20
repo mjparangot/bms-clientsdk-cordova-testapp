@@ -1,8 +1,11 @@
 # Specifies intentionally untracked files to ignore when using Git
 # http://git-scm.com/docs/gitignore
+<<<<<<< HEAD
 .DS_Store
 .idea/
 node_modules/
+=======
+
+>>>>>>> dev-matt
 platforms/
-plugins/
 .DS_Store

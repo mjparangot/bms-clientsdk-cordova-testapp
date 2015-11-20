@@ -1,0 +1,115 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"StatusBar\"><param name=\"ios-package\" value=\"CDVStatusBar\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"StatusBarOverlaysWebView\" value=\"true\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"StatusBarStyle\" value=\"lightcontent\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"BMSClient\"><param name=\"ios-package\" value=\"CDVBMSClient\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"MFPRequest\"><param name=\"ios-package\" value=\"CDVMFPRequest\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"MFPLogger\"><param name=\"ios-package\" value=\"CDVMFPLogger\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"MFPAnalytics\"><param name=\"ios-package\" value=\"CDVMFPAnalytics\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"AuthorizationManager\"><param name=\"ios-package\" value=\"CDVAuthorizationManager\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"AuthenticationContext\"><param name=\"ios-package\" value=\"CDVAuthenticationContext\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"MFPPushPlugin\"><param name=\"ios-package\" value=\"CDVMFPPush\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "framework": {
+                "parents": {
+                    "CoreGraphics.framework": [
+                        {
+                            "xml": false,
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "installed_plugins": {
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.ibm.test1"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.ibm.test1"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.ibm.test1"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.ibm.test1"
+        },
+        "cordova-plugin-test-framework": {
+            "PACKAGE_NAME": "com.ibm.test1"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.ibm.test1"
+        },
+        "ibm-mfp-core": {
+            "PACKAGE_NAME": "com.ibm.test1"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.ibm.test1"
+        },
+        "ibm-mfp-push": {
+            "PACKAGE_NAME": "com.ibm.test1"
+        },
+        "ibm-mfp-push-tests": {
+            "PACKAGE_NAME": "com.ibm.test1"
+        }
+    },
+    "dependent_plugins": {}
+}
