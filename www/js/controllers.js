@@ -259,6 +259,8 @@ module.controller('PushCtrl', function($scope, $rootScope, Push, Settings) {
   // Subscribe to all checked tags
   $scope.subscribe = function() {
 
+    $rootScope.showLoadingSpinner(0);
+
     var tag = $scope.push.tagSelected;
 
     // CAN OPTIMIZE: USE MAP INSTEAD OF SEARCHING THROUGH TAGLIST ARRAY
@@ -270,9 +272,15 @@ module.controller('PushCtrl', function($scope, $rootScope, Push, Settings) {
     if (i < $scope.tagList.length) {
       // Cordova Subscribe function
       MFPPush.subscribe(tag, function(success) {
+
+        $rootScope.hideLoading();
         alert("Subscribed to tag: " + tag);
+
       }, function(failure) {
+
+        $rootScope.hideLoading();
         alert("Failed to subscribe to tag: " + tag);
+
       });
 
       // Update available tag list
@@ -287,6 +295,8 @@ module.controller('PushCtrl', function($scope, $rootScope, Push, Settings) {
   // Unsubscribe from all checked tags
   $scope.unsubscribe = function() {
 
+    $rootScope.showLoadingSpinner(0);
+
     var tag = $scope.push.tagSelected;
 
     // CAN OPTIMIZE: USE MAP INSTEAD OF SEARCHING THROUGH TAGLIST ARRAY
@@ -298,9 +308,15 @@ module.controller('PushCtrl', function($scope, $rootScope, Push, Settings) {
     if (i < $scope.tagList.length) {
       // Cordova Subscribe function
       MFPPush.unsubscribe(tag, function(success) {
+
+        $rootScope.hideLoading();
         alert("Unsubscribed from tag: " + tag);
+
       }, function(failure) {
+
+        $rootScope.hideLoading();
         alert("Failed to unsubscribe from tag: " + tag);
+        
       });
 
       // Update available tag list
