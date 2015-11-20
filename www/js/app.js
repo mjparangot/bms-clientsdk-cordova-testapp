@@ -53,6 +53,8 @@ app.run(function($ionicPlatform, $ionicPopup, $timeout) {
 
     MFPPush.registerNotificationsCallback(showNotification);
 
+    MFPLogger.setCapture(true);
+
   });
 });
 

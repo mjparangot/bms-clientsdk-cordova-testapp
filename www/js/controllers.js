@@ -8,10 +8,12 @@ var failure = function(res) {
   console.log(res);
 };
 
-module.run(function($rootScope, $ionicScrollDelegate, $location, $anchorScroll) {
+var spinners = ["android", "ios", "ios-small", "bubbles", "circles", "crescent", "dots", 
+  "lines", "ripples", "spiral"];
+
+module.run(function($rootScope, $ionicLoading, $ionicScrollDelegate, $location, $anchorScroll) {
     $rootScope.bluemixInit = true;
     $rootScope.pushDisabled = true;
-
 
     $rootScope.scrollTop = function(id) {
       $ionicScrollDelegate.resize();
@@ -27,6 +29,23 @@ module.run(function($rootScope, $ionicScrollDelegate, $location, $anchorScroll) 
       $ionicScrollDelegate.resize();
       $location.hash(id)
       $ionicScrollDelegate.$getByHandle('content').anchorScroll();
+    };
+
+    $rootScope.showLoading = function(temp) {
+      $ionicLoading.show({
+        template: temp
+      });
+    };
+
+    $rootScope.showLoadingSpinner = function(i) {
+      var spinner = '<ion-spinner icon="' + spinners[i] + '"></ion-spinner>';
+      $ionicLoading.show({
+        template: spinner
+      });
+    };
+
+    $rootScope.hideLoading= function(){
+      $ionicLoading.hide();
     };
 });
 
@@ -184,25 +203,26 @@ module.controller('PushCtrl', function($scope, $rootScope, Push, Settings) {
   // Register for push notifications
   $scope.registerDevice = function() {
 
-    // async open spinner
+
+    $rootScope.showLoadingSpinner(0);
     
     MFPPush.registerDevice(Settings.getPushSettings(), function(success) {
 
-      // async close spinner
-
-      alert("Successfully registered for push notifications");
       $scope.$evalAsync(function() {
+
         $scope.registered = true;
         $scope.push.status = "Registered for Push";
         $scope.push.class_status = "text-green";
         $rootScope.pushDisabled = false;
-      })
 
+        $rootScope.hideLoading();
+      });
 
+      alert("Successfully registered for push notifications");
 
     }, function(failure) {
 
-      // async close spinner
+      $rootScope.hideLoading();
 
       alert(failure);
 
@@ -212,6 +232,8 @@ module.controller('PushCtrl', function($scope, $rootScope, Push, Settings) {
   // Unregister for push notifications
   $scope.unregisterDevice = function() {
 
+    $rootScope.showLoadingSpinner(0);
+
     MFPPush.unregisterDevice(function(success) {
 
       alert("Successfully unregistered for push notifications");
@@ -220,11 +242,14 @@ module.controller('PushCtrl', function($scope, $rootScope, Push, Settings) {
         $scope.registered = false;
         $scope.push.status = "Not Registered for Push";
         $scope.push.class_status = "text-red";
-        $rootScope.pushDisabled = true;
         $scope.tagList = [];
+        $rootScope.pushDisabled = true;
+        $rootScope.hideLoading();
       });
 
     }, function(failure) {
+
+      $rootScope.hideLoading();
 
       alert(failure);
 
@@ -290,7 +315,9 @@ module.controller('PushCtrl', function($scope, $rootScope, Push, Settings) {
   // Update the list of available tags
   $scope.updateAvailableTags = function() {
     if ($scope.registered) {
+      $rootScope.showLoadingSpinner(0);
       MFPPush.retrieveSubscriptions(function(success) {
+        $rootScope.hideLoading();
         var subs = success;
         MFPPush.retrieveAvailableTags(function(tags) {
           $scope.tagList = [];
@@ -321,6 +348,7 @@ module.controller('PushCtrl', function($scope, $rootScope, Push, Settings) {
         }, null);
 
       }, function(error) {
+        $rootScope.hideLoading();
         return;
       });
     }
@@ -370,6 +398,7 @@ module.controller('SettingsCtrl', function($scope, Settings) {
 
   // Watch set capture option and set capture when enabled
   $scope.$watch("settings.logger.enabled", function() {
+    alert($scope.settings.logger.enabled);
     MFPLogger.setCapture($scope.settings.logger.enabled);
   });
 
