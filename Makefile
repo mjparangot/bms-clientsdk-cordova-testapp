@@ -11,8 +11,8 @@ all_droid_run:
 list:
 	cordova plugin list
 add:
-	#make add-git
-	make add-local
+	make add-git
+	#make add-local
 add-git:
 	cordova plugin add "https://github.com/ibm-bluemix-mobile-services/bms-clientsdk-cordova-plugin-push.git#development"
 	cordova plugin add ../mfppush-development/mfppush-plugin/tests
