@@ -74,10 +74,12 @@ module.controller('RequestCtrl', function($scope, $rootScope, Requests) {
   };
 
   $scope.sendRequest = function() {
+    $rootScope.showLoadingSpinner(0);
     Requests.sendRequest($scope.query.url, $scope.query.method, $scope.query.timeout, function(res) {
       $scope.$evalAsync(function() {
         $scope.query.response = JSON.stringify(res.responseText);
         $rootScope.scrollBottom('content');
+        $rootScope.hideLoading();
       });
     });
   };
@@ -184,7 +186,7 @@ module.controller('LoggerCtrl', function($scope, $ionicModal, Loggers) {
 });
 
 // MFPPush
-module.controller('PushCtrl', function($scope, $rootScope, Push, Settings) {
+module.controller('PushCtrl', function($scope, $rootScope, $ionicPopup, $timeout, Push, Settings) {
 
   // tag: { 
   //  name: string,
@@ -205,7 +207,6 @@ module.controller('PushCtrl', function($scope, $rootScope, Push, Settings) {
 
   // Register for push notifications
   $scope.registerDevice = function() {
-
 
     $rootScope.showLoadingSpinner(0);
     
@@ -230,6 +231,28 @@ module.controller('PushCtrl', function($scope, $rootScope, Push, Settings) {
       alert(failure);
 
     });
+
+    var showNotification = function(notif) {
+
+      console.log(notif);
+      console.log(JSON.stringify(notif));
+
+      var message = notif.message
+      var payload = notif.payload
+
+      var notifAlert = {
+        title: "Notification",
+        template: message + "\n\n" + payload
+      }
+
+      var alertPopup = $ionicPopup.alert(notifAlert);
+
+      $timeout(function() {
+        alertPopup.close(); //close the popup after 10 seconds
+      }, 15 * 1000);
+    };
+
+    MFPPush.registerNotificationsCallback(showNotification);
   }
 
   // Unregister for push notifications

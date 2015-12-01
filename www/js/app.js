@@ -31,28 +31,6 @@ app.run(function($ionicPlatform, $ionicPopup, $timeout) {
       //alert("Body:\n\n" + notif.aps.alert.message + "\n\nPayload:\n\n" + notif.payload);
     };
 
-    var showNotification = function(notif) {
-
-      console.log(notif);
-      console.log(JSON.stringify(notif));
-
-      var message = notif.message
-      var payload = notif.payload
-
-      var notifAlert = {
-        title: "Notification",
-        template: message + "\n\n" + payload
-      }
-
-      var alertPopup = $ionicPopup.alert(notifAlert);
-
-      $timeout(function() {
-        alertPopup.close(); //close the popup after 10 seconds
-      }, 10 * 1000);
-    };
-
-    MFPPush.registerNotificationsCallback(showNotification);
-
     MFPLogger.setCapture(true);
 
   });
